@@ -111,4 +111,17 @@ public class Ticket {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id='" + id + '\'' +
+                ", concertHall='" + concertHall + '\'' +
+                ", eventCode=" + eventCode +
+                ", time=" + time +
+                ", isPromo=" + isPromo +
+                ", stadiumSector=" + stadiumSector +
+                ", maxBackpackWeight=" + maxBackpackWeight +
+                ", price=" + price +
+                '}';
+    }
 }

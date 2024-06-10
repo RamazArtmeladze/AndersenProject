@@ -16,7 +16,7 @@ public class TicketService {
 
     public Ticket getTicketById(String id) {
         for (Ticket ticket : tickets) {
-            if (ticket.getId().equals(id)){
+            if (ticket.getId().equals(id)) {
                 return ticket;
             }
         }
@@ -31,5 +31,11 @@ public class TicketService {
             }
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        TicketService ticketService = new TicketService();
+        Ticket ticket = ticketService.getTicketById("ID1");
+        System.out.println(ticket);
     }
 }
