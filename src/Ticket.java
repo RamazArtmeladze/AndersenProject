@@ -1,8 +1,8 @@
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-public class Ticket {
-    private String id;  // I choose String here because the requirement is that it is possible to contain char. otherwise it should be long.
+public class Ticket extends ID implements Print {
     private String concertHall;
     private int eventCode;
     private LocalDateTime time;
@@ -11,7 +11,7 @@ public class Ticket {
     private double maxBackpackWeight;
     private BigDecimal price;
 
-    public Ticket(String id, String concertHall, int eventCode, LocalDateTime time, boolean isPromo, char stadiumSector, double maxBackpackWeight, BigDecimal price) {
+    public Ticket(Integer id, String concertHall, int eventCode, LocalDateTime time, boolean isPromo, char stadiumSector, double maxBackpackWeight, BigDecimal price) {
         setId(id);
         setConcertHall(concertHall);
         setEventCode(eventCode);
@@ -30,18 +30,6 @@ public class Ticket {
 
     public Ticket() {
         this.time = LocalDateTime.now();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        if (id != null && id.length() <= 4) {
-            this.id = id;
-        } else {
-            throw new IllegalArgumentException("ID must be 4 digits and/or characters max.");
-        }
     }
 
     public String getConcertHall() {
@@ -114,7 +102,7 @@ public class Ticket {
     @Override
     public String toString() {
         return "Ticket{" +
-                "id='" + id + '\'' +
+                "id='" + getId()  +
                 ", concertHall='" + concertHall + '\'' +
                 ", eventCode=" + eventCode +
                 ", time=" + time +
@@ -123,5 +111,51 @@ public class Ticket {
                 ", maxBackpackWeight=" + maxBackpackWeight +
                 ", price=" + price +
                 '}';
+    }
+
+    public String getAllValues() {
+        return toString();
+    }
+    @Override
+    public void print() {
+        Print.super.print();
+    }
+    public void updateTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public void updateStadiumSector(char stadiumSector) {
+        if (stadiumSector >= 'A' && stadiumSector <= 'C') {
+            this.stadiumSector = stadiumSector;
+        } else {
+            throw new IllegalArgumentException("Stadium Sector must be between 'A' and 'C'.");
+        }
+    }
+
+    public void share(String phoneNumber) {
+        System.out.println("Ticket shared to phone: " + phoneNumber);
+    }
+
+    public void share(String phoneNumber, String email) {
+        System.out.println("Ticket shared to phone: " + phoneNumber + " and email: " + email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), concertHall, eventCode, time, isPromo, stadiumSector, maxBackpackWeight, price);
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return getId() == ticket.getId() &&
+                eventCode == ticket.eventCode &&
+                isPromo == ticket.isPromo &&
+                stadiumSector == ticket.stadiumSector &&
+                Double.compare(ticket.maxBackpackWeight, maxBackpackWeight) == 0 &&
+                concertHall.equals(ticket.concertHall) &&
+                time.equals(ticket.time) &&
+                price.equals(ticket.price);
     }
 }
