@@ -20,6 +20,6 @@ public class Main {
 
         // *** additional task
         Ticket ticket2 = new Ticket();
-        NullableWarningCheck.checkNullWarnings(ticket2);
+        System.out.println(ticket2);
     }
 }

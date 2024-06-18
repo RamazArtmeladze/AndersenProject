@@ -4,6 +4,16 @@ public class NullableWarningCheck {
 
     public static void checkNullWarnings(Object obj) {
         Class<?> clazz = obj.getClass();
+
+        checkFieldsForNullWarnings(clazz, obj);
+
+        Class<?> superclass = clazz.getSuperclass();
+        if (superclass != null) {
+            checkFieldsForNullWarnings(superclass, obj);
+        }
+    }
+
+    private static void checkFieldsForNullWarnings(Class<?> clazz, Object obj) {
         Field[] fields = clazz.getDeclaredFields();
 
         for (Field field : fields) {

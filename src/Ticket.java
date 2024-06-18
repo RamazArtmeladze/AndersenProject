@@ -30,6 +30,7 @@ public class Ticket extends ID implements Print {
 
     public Ticket() {
         this.time = LocalDateTime.now();
+        NullableWarningCheck.checkNullWarnings(this);
     }
 
     public String getConcertHall() {
