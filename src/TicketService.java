@@ -10,13 +10,13 @@ public class TicketService {
         this.tickets = new ArrayList<>();
 
         for (int i = 0; i <10; i++) {
-            tickets.add(new Ticket("ID" + i, "Concert" + i, 100 + i, LocalDateTime.now(), false, 'A', 5.0, new BigDecimal(50.00)));
+            tickets.add(new Ticket( i, "Concert" + i, 100 + i, LocalDateTime.now(), false, 'A', 5.0, new BigDecimal(50.00)));
         }
     }
 
-    public Ticket getTicketById(String id) {
+    public Ticket getTicketById(int id) {
         for (Ticket ticket : tickets) {
-            if (ticket.getId().equals(id)) {
+            if (ticket.getId() == id) {
                 return ticket;
             }
         }
@@ -31,11 +31,5 @@ public class TicketService {
             }
         }
         return result;
-    }
-
-    public static void main(String[] args) {
-        TicketService ticketService = new TicketService();
-        Ticket ticket = ticketService.getTicketById("ID1");
-        System.out.println(ticket);
     }
 }
